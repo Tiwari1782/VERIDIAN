@@ -1,6 +1,6 @@
-# <img src="https://flagcdn.com/w20/un.png" width="20"/> VANGUARD — Real-Time Geopolitical Intelligence + AI Trading Signals
+# <img src="https://flagcdn.com/w20/un.png" width="20"/> VERIDIAN — Real-Time Geopolitical Intelligence + AI Trading Signals
 
-> **"Every tool shows you WHAT is happening. VANGUARD tells you WHAT TO DO about it."**
+> **"Every tool shows you WHAT is happening. VERIDIAN tells you WHAT TO DO about it."**
 
 [![MERN Stack](https://img.shields.io/badge/Stack-MERN-00D4FF?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
 [![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://reactjs.org/)
@@ -11,9 +11,9 @@
 
 ---
 
-## <i class="fa-solid fa-crosshairs"></i> What is VANGUARD?
+## <i class="fa-solid fa-crosshairs"></i> What is VERIDIAN?
 
-**VANGUARD** is a fully public, real-time geopolitical intelligence dashboard built on the **MERN stack**. It aggregates live global events — conflicts, protests, disasters, military movements, cyber threats — onto an interactive 3D globe, and uniquely converts those events into **AI-powered financial trading signals** in real time.
+**VERIDIAN** is a fully public, real-time geopolitical intelligence dashboard built on the **MERN stack**. It aggregates live global events — conflicts, protests, disasters, military movements, cyber threats — onto an interactive 3D globe, and uniquely converts those events into **AI-powered financial trading signals** in real time.
 
 No login. No authentication. Everything is visible and usable by any visitor instantly.
 
@@ -26,16 +26,15 @@ No login. No authentication. Everything is visible and usable by any visitor ins
 | **Too slow** | By the time intelligence is processed, markets have already priced it in |
 | **Fragmented tools** | Geopolitical events, market data, flight tracking, cyber threats all live in separate platforms |
 
-**VANGUARD** solves all four problems in a single, unified, zero-cost intelligence platform.
+**VERIDIAN** solves all four problems in a single, unified, zero-cost intelligence platform.
 
 ---
 
-## <i class="fa-solid fa-star"></i> What Makes VANGUARD Different
+## <i class="fa-solid fa-star"></i> What Makes VERIDIAN Different
 
 ### The GeoTrade AI Signal Engine — Never Been Built Before
 
-No commercial OSINT tool — not Reuters Eikon, not Bloomberg Terminal, not Conflictly.app — automatically converts a live geopolitical event into a financial trading signal with reasoning. VANGUARD does this in **under 2 seconds**.
-
+No commercial OSINT tool — not Reuters Eikon, not Bloomberg Terminal, not Conflictly.app — automatically converts a live geopolitical event into a financial trading signal with reasoning. VERIDIAN does this in **under 2 seconds**.
 ```
 Hormuz tensions escalating  →  Oil supply disruption likely  →  BUY $XOM  (confidence: 81%)
 China suspends rare earths  →  EV supply chain at risk      →  SELL $TSLA (confidence: 74%)
@@ -44,7 +43,7 @@ Middle East escalation      →  Safe haven demand rising     →  BUY $GLD   (c
 
 ### Competitor Comparison
 
-| Capability | Conflictly.app | LiveUAMap | Crisis24 | **VANGUARD** |
+| Capability | Conflictly.app | LiveUAMap | Crisis24 | **VERIDIAN** |
 |---|:---:|:---:|:---:|:---:|
 | 3D Interactive Globe | ✅ | ✅ | ❌ | ✅ |
 | Live Conflict Event Data | ✅ | ✅ | ✅ | ✅ |
@@ -64,7 +63,7 @@ Middle East escalation      →  Safe haven demand rising     →  BUY $GLD   (c
 
 ### <i class="fa-solid fa-globe"></i> Feature 1 — Live 3D Geopolitical Globe
 
-The centrepiece of VANGUARD. A WebGL globe that **slowly auto-rotates on idle** and shows every active geopolitical event on Earth as glowing, colour-coded dots.
+The centrepiece of VERIDIAN. A WebGL globe that **slowly auto-rotates on idle** and shows every active geopolitical event on Earth as glowing, colour-coded dots.
 
 - **Auto-rotation** — Globe spins at ~2 RPM on idle, stops on user interaction, resumes after 8 seconds
 - **Glowing event dots** — Each event plotted at real lat/lon. Dot size scales with severity. Colour maps to threat level
@@ -198,21 +197,19 @@ Optional globe overlay showing live cyber threats.
 
 ## <i class="fa-solid fa-palette"></i> Design System & Styling
 
-> **Agent Implementation Note:** VANGUARD must look like a military intelligence command centre. The aesthetic is deep navy/black backgrounds with glowing cyan and green accents — inspired directly by Conflictly.app. Every design decision signals urgency, precision, and real-time data. Do NOT use white backgrounds, light themes, rounded pastel elements, or any consumer app aesthetic.
+> **Agent Implementation Note:** VERIDIAN must look like a military intelligence command centre. The aesthetic is deep navy/black backgrounds with glowing cyan and green accents — inspired directly by Conflictly.app. Every design decision signals urgency, precision, and real-time data. Do NOT use white backgrounds, light themes, rounded pastel elements, or any consumer app aesthetic.
 
 ---
 
 ### Typography
 
-VANGUARD uses exactly **two fonts** loaded from Google Fonts CDN. Both must be imported via a single `<link>` tag in `index.html`.
-
+VERIDIAN uses exactly **two fonts** loaded from Google Fonts CDN. Both must be imported via a single `<link>` tag in `index.html`.
 ```html
 <link
   href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap"
   rel="stylesheet"
 />
 ```
-
 ```js
 // tailwind.config.js
 fontFamily: {
@@ -228,7 +225,7 @@ fontFamily: {
 
 | Element | Weight | Size | Colour |
 |---|---|---|---|
-| Site logo `VANGUARD` wordmark | `800` ExtraBold | `32px` | `#00D4FF` Cyber Cyan |
+| Site logo `VERIDIAN` wordmark | `800` ExtraBold | `32px` | `#00D4FF` Cyber Cyan |
 | Section headings (`<h2>`) | `700` Bold | `24px` | `#00D4FF` Cyber Cyan |
 | Panel card titles | `600` SemiBold | `16px` | `#FFFFFF` White |
 | Feature subheadings | `600` SemiBold | `18px` | `#00FF88` Signal Green |
@@ -261,7 +258,6 @@ fontFamily: {
 ### Colour Palette
 
 > **Agent Implementation Note:** Define all colours as CSS custom properties on `:root`. Use these token names consistently. Never hardcode hex values directly in components — always reference the token.
-
 ```css
 :root {
   /* Backgrounds */
@@ -291,7 +287,6 @@ fontFamily: {
 #### Semantic Signal Colours
 
 Every signal badge uses a **coloured text on a 15% opacity same-colour background** with a matching border — creating a glowing badge effect:
-
 ```css
 /* BUY badge */
 .badge-buy  { color: #00FF88; background: rgba(0,255,136,0.15); border: 1px solid #00FF88; }
@@ -321,7 +316,6 @@ Every signal badge uses a **coloured text on a 15% opacity same-colour backgroun
 #### Glassmorphism Panel Style
 
 > **Agent Implementation Note:** Apply `.panel` class to every card, sidebar, and overlay panel in the UI. This creates the frosted-glass depth effect seen in Conflictly.app.
-
 ```css
 .panel {
   background: rgba(13, 27, 42, 0.85);
@@ -335,7 +329,6 @@ Every signal badge uses a **coloured text on a 15% opacity same-colour backgroun
 ```
 
 #### Pulsing Ring Animation (CRITICAL events)
-
 ```css
 @keyframes pulse-ring {
   0%   { transform: scale(1);   opacity: 1; }
@@ -355,7 +348,6 @@ Every signal badge uses a **coloured text on a 15% opacity same-colour backgroun
 ```
 
 #### Skeleton Loader (all panels while loading)
-
 ```css
 @keyframes shimmer {
   0%   { background-position: -1000px 0; }
@@ -375,7 +367,6 @@ Every signal badge uses a **coloured text on a 15% opacity same-colour backgroun
 ### Country Flags
 
 > **Agent Implementation Note:** Country flags appear in 4 places: news feed headlines, country brief panel header, forex currency pairs, and the tension ticker. Use `flagcdn.com` — it is free, no API key needed, and returns a PNG flag for any ISO 3166-1 alpha-2 country code.
-
 ```
 Format: https://flagcdn.com/w{size}/{iso2_lowercase}.png
 
@@ -389,7 +380,6 @@ Examples:
 ```
 
 **Implementation in React:**
-
 ```jsx
 // FlagIcon component
 const FlagIcon = ({ iso2, size = 20, className = '' }) => (
@@ -424,7 +414,6 @@ const FlagIcon = ({ iso2, size = 20, className = '' }) => (
 ### Font Awesome Icons
 
 > **Agent Implementation Note:** Use Font Awesome 6 Free via CDN. Add this to `index.html`. Use `<i>` tags for all icons — do NOT use emojis anywhere in the UI. Emojis are inconsistent across operating systems and break the professional aesthetic.
-
 ```html
 <!-- Add to <head> in index.html -->
 <link
@@ -433,7 +422,7 @@ const FlagIcon = ({ iso2, size = 20, className = '' }) => (
 />
 ```
 
-#### Icon Map — Every Icon Used in VANGUARD
+#### Icon Map — Every Icon Used in VERIDIAN
 
 | Location | Icon Class | Colour | Purpose |
 |---|---|---|---|
@@ -482,9 +471,8 @@ const FlagIcon = ({ iso2, size = 20, className = '' }) => (
 ---
 
 ## <i class="fa-solid fa-sitemap"></i> Full Project Structure
-
 ```
-vanguard/
+veridian/
 ├── client/                              # React 18 + Vite Frontend
 │   ├── public/
 │   │   └── favicon.ico
@@ -597,7 +585,6 @@ vanguard/
 ## <i class="fa-solid fa-key"></i> Environment Variables
 
 Create a `.env` file in `/server/` — never commit this file to GitHub.
-
 ```env
 # ── AI — 4 Groq keys for rotation (create 4 free accounts at console.groq.com)
 GROQ_API_KEY_1=gsk_xxxxxxxxxxxxxxxxxxxx
@@ -623,7 +610,7 @@ EXCHANGE_RATE_KEY=xxxxxxxxxxxxxxxxxxxxxxxx
 CLOUDFLARE_RADAR_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
 
 # ── Database
-MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/vanguard
+MONGODB_URI=mongodb+srv://user:password@cluster.mongodb.net/veridian
 PORT=5000
 ```
 
@@ -656,7 +643,6 @@ PORT=5000
 ---
 
 ## <i class="fa-solid fa-code-branch"></i> System Architecture
-
 ```
 ┌─────────────────────────────────────────────────────────────┐
 │                        DATA SOURCES                         │
@@ -705,11 +691,10 @@ PORT=5000
 ---
 
 ## <i class="fa-solid fa-rocket"></i> Quick Start
-
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/vanguard.git
-cd vanguard
+git clone https://github.com/yourusername/veridian.git
+cd veridian
 
 # Install pnpm globally (faster than npm)
 npm install -g pnpm
@@ -735,7 +720,7 @@ Visit `http://localhost:5173` — the globe loads automatically.
 
 > **"Right now, somewhere on Earth, a missile was just fired, a government just collapsed, or a major trade route just closed. A trader who knows this in the next 30 seconds can make a fortune. A trader who finds out in 3 hours loses one. We built the 30-second version."**
 
-**VANGUARD** — *Where Geopolitics Meets Trading Intelligence*
+**VERIDIAN** — *Where Geopolitics Meets Trading Intelligence*
 
 `Built in 24 hours` · `MERN Stack` · `$0 to run` · `Zero mock data`
 
