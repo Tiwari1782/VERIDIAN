@@ -27,10 +27,12 @@ function set(key, data, ttl = DEFAULT_TTL) {
   });
 }
 
+//Del key fnction
 function del(key) {
   cache.delete(key); 
 }
 
+//Clear key function
 function clear() {
   cache.clear();
 }
