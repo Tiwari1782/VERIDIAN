@@ -108,3 +108,11 @@ export default function DashboardCenter() {
             onCountryClick={handleCountryClick} 
             flyToTarget={flyToTarget} 
           />
+            ) : (
+          <Map2D 
+            events={filteredEvents} 
+            flights={filteredFlights}
+            showFlights={showFlights}
+            onCountryClick={handleCountryClick} 
+          />
+        )}
