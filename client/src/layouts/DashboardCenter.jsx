@@ -8,3 +8,36 @@ import FlightConsole from '../components/FlightConsole';
 import ErrorBoundary from '../components/ErrorBoundary';
 import { useData } from '../context/DataContext';
 import { useUI } from '../context/UIContext';
+
+export default function DashboardCenter() {
+  const { flights, cyber, news, aiRegions } = useData();
+  const {
+    activeFilters,
+    handleFilterToggle,
+    timeRange,
+    setTimeRange,
+    viewMode,
+    setViewMode,
+    showFlights,
+    setShowFlights,
+    showCyber,
+    setShowCyber,
+    showRegions,
+    setShowRegions,
+    showHeatmap,
+    setShowHeatmap,
+    panelsVisible,
+    setPanelsVisible,
+    audio,
+    filteredEvents,
+    filteredFlights,
+    handleCountryClick,
+    flyToTarget,
+    handleRegionClick,
+    flightCategory,
+    setFlightCategory,
+    minTime,
+    maxTime,
+    scrubTime,
+    setScrubTime
+  } = useUI();
