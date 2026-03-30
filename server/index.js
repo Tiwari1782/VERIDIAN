@@ -129,3 +129,28 @@ app.get('/api/health', (_req, res) => res.json({
       console.warn('[WS] Push update error:', err.message);
     }
   }
+  // Run push cycle every 60 seconds
+setInterval(pushLiveUpdates, 60000);
+
+// --------------- MongoDB ---------------
+const MONGODB_URI = process.env.MONGODB_URI || '';
+
+async function startServer() {
+  if (MONGODB_URI) {
+    try {
+      await mongoose.connect(MONGODB_URI);
+      console.log('[VERIDIAN] MongoDB Atlas connected');
+    } catch (err) {
+      console.warn('[VERIDIAN] MongoDB connection failed — running without database:', err.message);
+    }
+  } else {
+    console.warn('[VERIDIAN] No MONGODB_URI — running without database (cached briefs/signals disabled)');
+  }
+
+  server.listen(PORT, () => {
+    console.log(`[VERIDIAN] Server running on http://localhost:${PORT}`);
+    console.log(`[VERIDIAN] WebSocket ready — real-time push enabled`);
+  });
+}
+
+startServer();
