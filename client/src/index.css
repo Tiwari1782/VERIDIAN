@@ -176,3 +176,98 @@ select {
 .glow-pulse {
   animation: glowPulse 2s ease-in-out infinite;
 }
+/* ========================================
+   Utility Classes
+   ======================================== */
+.font-mono-num {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.text-cyan { color: var(--color-cyan); }
+.text-green { color: var(--color-green); }
+.text-red { color: var(--color-red); }
+.text-orange { color: var(--color-orange); }
+.text-yellow { color: var(--color-yellow); }
+.text-gold { color: var(--color-gold); }
+.text-purple { color: var(--color-purple); }
+.text-muted { color: var(--color-text-muted); }
+.text-secondary { color: var(--color-text-secondary); }
+
+.bg-surface { background: var(--color-surface); }
+.border-veridian { border-color: var(--color-border); }
+
+/* Severity dot colors */
+.severity-dot-CRITICAL { color: var(--color-red); }
+.severity-dot-HIGH { color: var(--color-orange); }
+.severity-dot-MEDIUM { color: var(--color-yellow); }
+.severity-dot-LOW { color: var(--color-green); }
+
+/* Signal badge backgrounds */
+.signal-BUY  { background: rgba(0, 255, 136, 0.15); color: var(--color-green); border: 1px solid rgba(0, 255, 136, 0.3); }
+.signal-HOLD { background: rgba(234, 179, 8, 0.15);  color: var(--color-yellow); border: 1px solid rgba(234, 179, 8, 0.3); }
+.signal-SELL { background: rgba(239, 68, 68, 0.15);  color: var(--color-red);    border: 1px solid rgba(239, 68, 68, 0.3); }
+
+/* Outlook badges */
+.outlook-Stable        { background: rgba(0, 255, 136, 0.15); color: var(--color-green); }
+.outlook-Deteriorating { background: rgba(234, 179, 8, 0.15);  color: var(--color-yellow); }
+.outlook-Escalating    { background: rgba(249, 115, 22, 0.15); color: var(--color-orange); }
+.outlook-Crisis        { background: rgba(239, 68, 68, 0.15);  color: var(--color-red); }
+
+/* ========================================
+   Command Center Panel Animations
+   ======================================== */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.4s ease-out forwards;
+}
+
+/* Ultra-thin scrollbar override for panels */
+.custom-scrollbar, .overflow-y-auto {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.08) transparent;
+}
+.custom-scrollbar::-webkit-scrollbar, .overflow-y-auto::-webkit-scrollbar {
+  width: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-track, .overflow-y-auto::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb, .overflow-y-auto::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.08);
+  border-radius: 2px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover, .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.3);
+}
+
+/* Panel glow border effect */
+.panel-glow {
+  box-shadow: inset 0 0 30px rgba(0, 212, 255, 0.02), 0 0 1px rgba(0, 212, 255, 0.1);
+}
+
+/* ========================================
+   Cinematic Radar Pulse Effects
+   ======================================== */
+@keyframes radarPulse {
+  0% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+  70% { box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+}
+
+.radar-pulse-critical {
+  animation: radarPulse 2s infinite;
+  border-radius: 50%;
+}
