@@ -61,3 +61,39 @@ function gatherLiveContext(country) {
   const flights = cache.get('flights') || [];
   const cyber = cache.get('cyber') || [];
   const financeOverview = cache.get('finance_overview') || {};
+
+   // Filter context relevant to this country
+  const countryLower = (country || '').toLowerCase();
+
+  const countryEvents = events.filter(e =>
+    (e.country || '').toLowerCase().includes(countryLower) ||
+    (e.title || '').toLowerCase().includes(countryLower)
+  );
+
+  const countryNews = news.filter(n =>
+    (n.title || '').toLowerCase().includes(countryLower) ||
+    (n.region || '').toLowerCase().includes(countryLower)
+  );
+
+  const countryFlights = flights.filter(f => {
+    if (!f.nearConflictZone) return false;
+    return f.nearConflictZone.toLowerCase().includes(countryLower) ||
+           (f.origin || '').toLowerCase().includes(countryLower);
+  });
+
+  const countryCyber = cyber.filter(c =>
+    (c.country || '').toLowerCase().includes(countryLower)
+  );
+
+  return {
+    allEvents: events,
+    allNews: news,
+    allFlights: flights,
+    allCyber: cyber,
+    financeOverview,
+    countryEvents,
+    countryNews,
+    countryFlights,
+    countryCyber
+  };
+}
