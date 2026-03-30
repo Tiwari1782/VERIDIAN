@@ -97,3 +97,22 @@ function gatherLiveContext(country) {
     countryCyber
   };
 }
+
+// ============================================================
+//  POST /api/ai/brief — DEEP COUNTRY INTELLIGENCE BRIEF
+// ============================================================
+
+router.post('/brief', async (req, res) => {
+  try {
+    const { country, headlines } = req.body;
+    if (!country) return res.status(400).json({ error: 'Country name is required' });
+
+    // Check MongoDB cache first (with 1-hour expiry consideration)
+    if (BriefCache) {
+      try {
+        const cached = await BriefCache.findOne({ countryName: country });
+        if (cached && cached.updatedAt && (Date.now() - new Date(cached.updatedAt).getTime() < 60 * 60 * 1000)) {
+          return res.json({ ...cached.toObject(), cached: true });
+        }
+      } catch (e) { /* DB unavailable */ }
+    }
