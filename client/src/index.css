@@ -349,3 +349,37 @@ select {
   --defcon-bg-shift: #160A0A;
   --defcon-panel-tint: rgba(239, 68, 68, 0.04);
 }
+
+/* Apply DEFCON theming to panels */
+[data-defcon] .panel-glow {
+  box-shadow: inset 0 0 30px var(--defcon-panel-tint), 0 0 1px var(--defcon-border);
+}
+
+/* DEFCON pulse border on severe */
+@keyframes defconPulse {
+  0%, 100% { border-color: var(--defcon-border); }
+  50% { border-color: var(--defcon-accent); }
+}
+
+[data-defcon="1"] .panel-glow,
+[data-defcon="2"] .panel-glow {
+  animation: defconPulse 3s ease-in-out infinite;
+}
+
+/* Keyboard shortcuts modal */
+.kbd-key {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 24px;
+  height: 24px;
+  padding: 0 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.3);
+}
