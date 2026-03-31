@@ -140,4 +140,27 @@ async function fetchRSSFeeds() {
     }
     return results;
   }
+  /**
+ * Detect BREAKING: same story across 3+ sources in 15min
+ */
+function detectBreaking(articles) {
+    const window = 15 * 60 * 1000;
+    const buckets = {};
+    articles.forEach(a => {
+      if (!a.title) return;
+      const words = a.title.toLowerCase().split(/\s+/).filter(w => w.length > 4).slice(0, 5);
+      const key = words.sort().join('|');
+      if (!buckets[key]) buckets[key] = [];
+      buckets[key].push(a);
+    });
+    Object.values(buckets).forEach(group => {
+      if (group.length >= 3) {
+        const times = group.map(a => new Date(a.publishedAt).getTime());
+        if (Math.max(...times) - Math.min(...times) < window) {
+          group.forEach(a => { a.isBreaking = true; });
+        }
+      }
+    });
+    return articles;
+  }
   
