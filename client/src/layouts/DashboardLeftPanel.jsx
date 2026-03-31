@@ -12,3 +12,4 @@ export default function DashboardLeftPanel() {
     timeRange, 
     setWargameEvent 
   } = useUI();
+import { useUI } from '../context/UIContext';
