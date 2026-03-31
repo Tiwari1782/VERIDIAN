@@ -168,3 +168,79 @@ export function UIProvider({ children }) {
     window.addEventListener('keydown', handleKeyboard);
     return () => window.removeEventListener('keydown', handleKeyboard);
   }, [isOmniOpen, isShortcutsOpen, audio, handleCommsToggle]);
+// ─── WebSocket Real-Time Push Listeners ────────────────────
+  useEffect(() => {
+    const unsub1 = onEvent('data:breakingNews', (breakingItems) => {
+      breakingItems.forEach(item => {
+        if (!toastedNewsIds.current.has(item.title)) {
+          toastedNewsIds.current.add(item.title);
+          toast.addToast({
+            type: 'BREAKING',
+            title: item.title,
+            subtitle: `LIVE PUSH • ${item.source || 'UNKNOWN'}`
+          });
+          audio.playBloop();
+        }
+      });
+    });
+
+    const unsub2 = onEvent('data:newEvents', (newEvents) => {
+      newEvents.forEach(evt => {
+        if (evt.severity === 'CRITICAL' && !toastedEventIds.current.has(evt.id)) {
+          toastedEventIds.current.add(evt.id);
+          toast.addToast({
+            type: 'CRITICAL',
+            title: evt.title,
+            subtitle: `LIVE INTEL • ${evt.country || 'GLOBAL'}`
+          });
+        }
+      });
+    });
+
+    return () => { unsub1(); unsub2(); };
+  }, [onEvent, toast, audio]);
+
+  // Monitor News for CRITICAL Alerts
+  useEffect(() => {
+    if (!isCommsActive || newsLoading) return;
+    const criticalNews = news.find(n => n.severity === 'CRITICAL' && !spokenNewsIds.current.has(n.id));
+    if (criticalNews) {
+       spokenNewsIds.current.add(criticalNews.id);
+       announce(`ATTENTION. CRITICAL INTEL INTERCEPTED. ${criticalNews.title}. STATUS: ACTIVE.`, 'CRITICAL');
+    }
+  }, [news, isCommsActive, newsLoading, announce]);
+
+  // Monitor Markets for GEOTRADE SURGE
+  useEffect(() => {
+    if (!isCommsActive || financeLoading || !overview) return;
+    const allAssets = [...(overview.crypto || []), ...(overview.forex || [])];
+    const surge = allAssets.find(a => 
+       Math.abs(a.change) >= 10 && 
+       !spokenAssetIds.current.has(`${a.symbol || a.pair}_${Math.floor(Date.now() / 3600000)}`)
+    );
+    if (surge) {
+       const symbol = surge.symbol || surge.pair;
+       spokenAssetIds.current.add(`${symbol}_${Math.floor(Date.now() / 3600000)}`);
+       announce(`ATTENTION. GEOTRADE SURGE DETECTED. ASSET ${symbol} MOVED ${Math.round(surge.change)} PERCENT. ACTION ADVISED.`, 'SURGE');
+    }
+  }, [overview, isCommsActive, financeLoading, announce]);
+
+  // Fetch finance & predictions on mount
+  useEffect(() => { 
+    fetchOverview(); 
+    fetchPredictions();
+  }, [fetchOverview, fetchPredictions]);
+
+  // ─── Computed Data ───────────────────────────────────────
+  const filteredEvents = useMemo(() => {
+    // If we are actively scrubbing backwards, only show events up to that exact minute
+    // We create a sliding window of events visible at any point in the scrub
+    const windowLength = { '1h': 3600000, '6h': 21600000, '24h': 86400000, '7d': 604800000 }[timeRange] || 86400000;
+
+    const hasActiveFilters = Object.keys(deferredFilters).length > 0;
+return events.filter(e => {
+  if (deferredFilters[e.type] === false) return false;
+  if (!e.timestamp) return true;
+  const evtTime = new Date(e.timestamp).getTime();
+  return evtTime <= scrubTime && evtTime >= (scrubTime - windowLength);
+});
