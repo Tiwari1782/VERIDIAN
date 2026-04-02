@@ -17,3 +17,34 @@ const DEMO_CYBER = [
   { lat: -33.87, lng: 151.21, type: 'malware', severity: 'MEDIUM', host: '203.x.x.x', country: 'Australia' },
   { lat: 50.45, lng: 30.52, type: 'botnet',  severity: 'CRITICAL', host: '93.x.x.x',  country: 'Ukraine' },
 ];
+
+/**
+ * Fetch C2 botnet servers from abuse.ch Feodo Tracker
+ */
+async function fetchFeodoTracker() {
+  try {
+    const res = await axios.get('https://feodotracker.abuse.ch/downloads/ipblocklist_recommended.json', { timeout: 10000 });
+    const data = Array.isArray(res.data) ? res.data : [];
+    // Take first 20 and geolocate
+    const threats = [];
+    for (const entry of data.slice(0, 15)) {
+      const ip = entry.ip_address || entry.ip || '';
+      if (!ip) continue;
+      try {
+        const geo = await axios.get(`https://ipapi.co/${ip}/json/`, { timeout: 3000 });
+        threats.push({
+          lat: geo.data?.latitude || 0,
+          lng: geo.data?.longitude || 0,
+          type: 'botnet',
+          severity: 'HIGH',
+          host: ip.replace(/\d+\.\d+$/, 'x.x'),
+          country: geo.data?.country_name || 'Unknown'
+        });
+      } catch (e) { /* skip */ }
+    }
+    return threats;
+  } catch (err) {
+    console.warn('[cyber] Feodo Tracker fetch failed:', err.message);
+    return [];
+  }
+}
