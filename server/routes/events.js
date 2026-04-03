@@ -49,3 +49,76 @@ function classifyEvent(text) {
   if (/conflict|battle|military|war|attack|bomb|militant|drone|airstrike/.test(t)) return 'conflict';
   return 'political';
 }
+
+/**
+ * GDELT GeoJSON API — free, no auth, updates every 15 min
+ */
+/**
+ * GDELT — use TV API instead of DOC API, much faster
+ */
+
+/**
+ * NASA EONET — natural events (fires, storms, volcanoes)
+ */
+async function fetchEONET() {
+  try {
+    const res = await axios.get('https://eonet.gsfc.nasa.gov/api/v3/events', {
+      params: { limit: 20, days: 7, status: 'open' },
+      timeout: 8000
+    });
+
+    const events = res.data?.events || [];
+    console.log(`[events] EONET returned ${events.length} natural events`);
+
+    return events
+      .map((e, i) => {
+        const geo = e.geometry?.[0];
+        if (!geo?.coordinates) return null;
+        return {
+          id: `eonet_${i}`,
+          title: e.title || 'Natural Event',
+          lat: geo.coordinates[1],
+          lng: geo.coordinates[0],
+          severity: 'HIGH',
+          type: classifyEvent(e.title || e.categories?.[0]?.title || ''),
+          country: '',
+          iso2: '',
+          source: 'NASA EONET'
+        };
+      })
+      .filter(Boolean);
+  } catch (err) {
+    console.warn('[events] EONET fetch failed:', err.message);
+    return [];
+  }
+}
+
+/**
+ * USGS earthquake feed — always reliable, no auth needed
+ */
+async function fetchUSGS() {
+  try {
+    const res = await axios.get(
+      'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_day.geojson',
+      { timeout: 10000 }
+    );
+    const features = res.data?.features || [];
+    const events = features.slice(0, 20).map((f, i) => ({
+      id: `usgs_${i}`,
+      title: f.properties?.title || 'Earthquake',
+      lat: f.geometry?.coordinates?.[1] || 0,
+      lng: f.geometry?.coordinates?.[0] || 0,
+      severity: f.properties?.mag >= 6 ? 'CRITICAL' : f.properties?.mag >= 4.5 ? 'HIGH' : 'MEDIUM',
+      type: 'earthquake',
+      country: (f.properties?.place || '').split(', ').pop() || '',
+      iso2: '',
+      source: 'USGS'
+    }));
+    console.log(`[events] USGS returned ${events.length} earthquakes`);
+    return events;
+  } catch (err) {
+    console.warn('[events] USGS fetch failed:', err.message);
+    return [];
+  }
+}
+
