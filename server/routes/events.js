@@ -30,3 +30,22 @@ const DEMO_EVENTS = [
   { id: 'd24', title: 'Anti-terrorism operation launched',          lat: 33.72,  lng: 73.04,   severity: 'HIGH',     type: 'conflict',     country: 'Pakistan',    iso2: 'pk' },
   { id: 'd25', title: 'Typhoon warning issued for coastal regions', lat: 14.60,  lng: 120.98,  severity: 'HIGH',     type: 'disaster',     country: 'Philippines', iso2: 'ph' },
 ];
+
+function scoreSeverity(text) {
+  const t = (text || '').toLowerCase();
+  if (/killed|bombing|attack|explosion|war|missiles|airstrike|massacre/.test(t)) return 'CRITICAL';
+  if (/military|armed|troops|clash|strike|gunfire|hostage/.test(t)) return 'HIGH';
+  if (/protest|tension|sanctions|arrest|unrest/.test(t)) return 'MEDIUM';
+  return 'LOW';
+}
+
+function classifyEvent(text) {
+  const t = (text || '').toLowerCase();
+  if (/earthquake|quake|seismic/.test(t)) return 'earthquake';
+  if (/wildfire|fire|blaze/.test(t)) return 'wildfire';
+  if (/flood|tsunami|hurricane|typhoon|cyclone|storm|volcano/.test(t)) return 'disaster';
+  if (/protest|demonstrat|rally|march/.test(t)) return 'protest';
+  if (/cyber|hack|ransomware|breach/.test(t)) return 'cyber';
+  if (/conflict|battle|military|war|attack|bomb|militant|drone|airstrike/.test(t)) return 'conflict';
+  return 'political';
+}
